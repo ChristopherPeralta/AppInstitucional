@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="360dp"
+    android:layout_height="80dp"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/IconoCursoContainer"
+            android:layout_width="63dp"
+            android:layout_height="match_parent"
+            android:textAlignment="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/descripcionCursoContainer">
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/circle_shape"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvInitial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="C"
+                android:textColor="@color/Azul900"
+                style="@style/Titulo2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+            
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/descripcionCursoContainer"
+            android:layout_width="228dp"
+            android:layout_height="80dp"
+            android:textAlignment="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/aulaCurso"
+            app:layout_constraintStart_toEndOf="@+id/IconoCursoContainer">
+
+            <TextView
+                android:id="@+id/tvNombreCurso"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NombreCurso"
+                style="@style/Titulo4"
+                android:textColor="@color/Azul900"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tvGrado"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tvHoraInicio"/>
+
+            <TextView
+                android:id="@+id/tvGrado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Grado"
+                style="@style/Titulo4"
+                android:textColor="@color/Azul900"
+                app:layout_constraintStart_toEndOf="@+id/tvNombreCurso"
+                app:layout_constraintEnd_toStartOf="@id/tvSeccion"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tvHoraInicio"/>
+
+            <TextView
+                android:id="@+id/tvSeccion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sección"
+                style="@style/Titulo4"
+                android:textColor="@color/Azul900"
+                app:layout_constraintStart_toEndOf="@+id/tvGrado"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tvHoraInicio"/>
+
+            <TextView
+                android:id="@+id/tvHoraInicio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HoraInicio"
+                android:textColor="@color/Azul500"
+                style="@style/Small"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tvHoraFin"
+                app:layout_constraintTop_toBottomOf="@id/tvNombreCurso"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvHoraFin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HoraFin"
+                android:textColor="@color/Azul500"
+                style="@style/Small"
+                app:layout_constraintStart_toEndOf="@id/tvHoraInicio"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvNombreCurso"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/aulaCurso"
+            android:layout_width="69dp"
+            android:layout_height="80dp"
+            android:textAlignment="center"
+            app:layout_constraintStart_toEndOf="@id/descripcionCursoContainer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/tvAula"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aula"
+                style="@style/Titulo4"
+                android:textColor="@color/Azul900"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tvNumeroAula"
+                />
+            <TextView
+                android:id="@+id/tvNumeroAula"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NumeroAula"
+                style="@style/Small"
+                android:textColor="@color/Azul500"
+                app:layout_constraintTop_toBottomOf="@+id/tvAula"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</androidx.cardview.widget.CardView>
