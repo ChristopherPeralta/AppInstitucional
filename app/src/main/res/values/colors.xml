@@ -3,6 +3,14 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="toolbar_color">#B2B9F6</color>
-    <color name="toolbar_text">#12219E</color>
+    <color name="Azul100">#B2B9F6</color>
+    <color name="Azul200">#8C96F2</color>
+    <color name="Azul300">#7885EF</color>
+    <color name="Azul400">#6573ED</color>
+    <color name="Azul500">#5262EB</color>
+    <color name="Azul600">#3245E7</color>
+    <color name="Azul700">#1A2EDD</color>
+    <color name="Azul800">#1627BD</color>
+    <color name="Azul900">#12219E</color>
+
 </resources>
