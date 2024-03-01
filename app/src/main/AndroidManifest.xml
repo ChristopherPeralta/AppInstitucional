@@ -12,7 +12,36 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppInstitucional"
         tools:targetApi="31">
-
+        <activity
+            android:name=".ui.OlvideContrasena"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Alumno.AlumnoCursoNotas"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Alumno.AlumnoCursoAsistencia"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Alumno.AlumnoBusqueda"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Administrador.AlumnoAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Administrador.ProfesorAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Administrador.SeccionAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Administrador.GradoAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Administrador.NivelAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Profesor.CursoAsistenciaProfesor"
+            android:exported="false" />
         <activity
             android:name=".ui.Administrador.AdministradorActivity"
             android:exported="false" />
@@ -24,15 +53,6 @@
             android:exported="false" />
         <activity
             android:name=".ui.LoginActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
