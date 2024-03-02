@@ -10,7 +10,7 @@
     <string name="no_tienes_cuenta">No tienes cuenta, registrate</string>
 
     //OlvideMiContraseña
-    <string name="titulo_olvide_contrasena">Olvidé mi contraseña</string>
+    <string name="titulo_olvide_contrasena">Recuperar Contraseña</string>
     <string name="mensaje_ayuda">Te enviaremos instrucciones a tu correo electrónico de registro para restablecer tu contraseña</string>
     <string name="recuperar">Recuperar</string>
     <string name="iniciar_sesion">Ya tengo cuenta, iniciar sesión</string>
