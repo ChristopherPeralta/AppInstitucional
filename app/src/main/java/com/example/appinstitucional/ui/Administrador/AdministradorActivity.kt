@@ -3,8 +3,11 @@ package com.example.appinstitucional.ui.Administrador
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Toolbar
 import com.example.appinstitucional.R
 import com.example.appinstitucional.ui.Profesor.ProfesorActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -33,12 +36,22 @@ class AdministradorActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setTitle("")
+
         OnNavigationItemSelectedListener()
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_administrador, menu)
+        return true
     }
 
     private fun OnNavigationItemSelectedListener() {
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        bottomNavigation.setOnNavigationItemSelectedListener { item ->
+        bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.iconCursos -> {
                     val intent = Intent(this, AdministradorActivity::class.java)
@@ -57,6 +70,16 @@ class AdministradorActivity : AppCompatActivity() {
                 }
                 else -> false
             }
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_repeat -> {
+                // Aquí puedes manejar la acción de clic en el elemento de repetición
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }

@@ -11,36 +11,23 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/Azul100"
+        app:menu="@menu/menu_administrador"
+        style="@style/Titulo1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/administrador_titulo"
-            style="@style/Titulo2"
-            android:layout_marginStart="48dp"
-            android:textColor="@color/Azul900"/>
-
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_pluscircle"
-            android:layout_marginEnd="16dp"
-            android:layout_gravity="end"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/circle_shape"
-            android:padding="4dp"
-            android:onClick="agregarCurso"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:tint="@color/Azul900" />
-
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/administrador_titulo"
+        style="@style/Titulo2"
+        android:textColor="@color/Azul900"/>
 
     </androidx.appcompat.widget.Toolbar>
+
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/NavegacionContainer"
@@ -369,7 +356,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/Azul100"
+        app:itemIconTint="@animator/bottom_navigation_colors"
+        app:itemTextColor="@animator/bottom_navigation_colors"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_navigation_menu"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        tools:layout_editor_absoluteX="0dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

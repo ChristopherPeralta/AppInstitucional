@@ -27,7 +27,7 @@
 
     //ADMIN
     //AdminActivity
-    <string name="administrador_titulo">Administrador</string>
+    <string name="administrador_titulo">Cursos</string>
     <string name="nivel">Nivel</string>
     <string name="grado">Grado</string>
     <string name="seccion">Sección</string>
