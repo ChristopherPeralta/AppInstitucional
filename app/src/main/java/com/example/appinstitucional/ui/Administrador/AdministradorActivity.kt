@@ -1,19 +1,21 @@
 package com.example.appinstitucional.ui.Administrador
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
-import android.widget.ImageView
+import android.widget.ImageButton
 import android.widget.Toolbar
+import androidx.appcompat.app.AlertDialog
 import com.example.appinstitucional.R
-import com.example.appinstitucional.ui.Profesor.ProfesorActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationView
 
 class AdministradorActivity : AppCompatActivity() {
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_administrador)
@@ -36,13 +38,34 @@ class AdministradorActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        supportActionBar?.setTitle("")
+        val btnAgregarCurso: ImageButton = findViewById(R.id.btnAgregarCurso)
+        btnAgregarCurso.setOnClickListener {
+            val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_new_course, null)
+            val builder = AlertDialog.Builder(this)
+                .setView(dialogView)
+                .setTitle("Nuevo curso")
+            val alertDialog = builder.show()
 
+            val btnCancel: Button = dialogView.findViewById(R.id.btnCancel) // Busca el botón btnCancel en dialogView
+            btnCancel.setOnClickListener {
+                alertDialog.dismiss()
+            }
+
+            val btnCreateCourse: Button = dialogView.findViewById(R.id.btnCreateCourse)
+            btnCreateCourse.setOnClickListener {
+                // Aquí es donde recoges los datos ingresados por el usuario y creas el nuevo curso
+
+                alertDialog.dismiss() // Cierra el diálogo
+            }
+        }
+
+
+
+
+        updateNavigationSelection()
         OnNavigationItemSelectedListener()
-
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_administrador, menu)
@@ -73,10 +96,24 @@ class AdministradorActivity : AppCompatActivity() {
         }
     }
 
+    private fun updateNavigationSelection() {
+        val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        when (this.javaClass) {
+            AdministradorActivity::class.java -> {
+                bottomNavigation.selectedItemId = R.id.iconCursos
+            }
+            ProfesorAdmin::class.java -> {
+                bottomNavigation.selectedItemId = R.id.iconProfesor
+            }
+            AlumnoAdmin::class.java -> {
+                bottomNavigation.selectedItemId = R.id.iconAlumno
+            }
+        }
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_repeat -> {
-                // Aquí puedes manejar la acción de clic en el elemento de repetición
                 true
             }
             else -> super.onOptionsItemSelected(item)
