@@ -35,7 +35,6 @@
         tools:listitem="@layout/item_cursoprofesor"
         tools:itemCount="5"
         android:id="@+id/recycler"
-        android:layout_marginTop="16dp"
-        />
+        android:layout_marginTop="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
