@@ -1,5 +1,8 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <solid android:color="#FFFFFF"/> <!-- Color de fondo -->
-    <stroke android:color="#000000" android:width="2dp"/> <!-- Color y ancho del borde -->
-    <corners android:radius="4dp"/> <!-- Radio de las esquinas -->
+    <stroke android:color="@color/Azul500" android:width="2dp"/> <!-- Color y ancho del borde -->
+    <corners android:radius="10dp"/>
+    <padding android:bottom="16dp"/>
+    <padding android:top="16dp"/>
+    <padding android:start="16dp"/>
 </shape>
