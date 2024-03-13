@@ -51,6 +51,13 @@
         <item name="android:textColor">@color/Azul900</item>
         <item name="android:gravity">center</item>
         <item name="android:padding">8dp</item>
-        <item name="android:background">@color/Azul100</item>
+        <item name="android:background">@color/Azul200</item>
+    </style>
+
+    <style name="admin_curso_btn_navigation">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/Azul900</item>
     </style>
 </resources>

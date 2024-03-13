@@ -4,17 +4,41 @@
 
 <resources>
     <color name="black">#2A2A2A</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="white">#FFFFFF</color>
 
-    <color name="Azul100">#B2B9F6</color>
-    <color name="Azul200">#8C96F2</color>
-    <color name="Azul300">#7885EF</color>
-    <color name="Azul400">#6573ED</color>
-    <color name="Azul500">#5262EB</color>
-    <color name="Azul600">#3245E7</color>
-    <color name="Azul700">#1A2EDD</color>
-    <color name="Azul800">#1627BD</color>
-    <color name="Azul900">#12219E</color>
+    <color name="Azul100">#4A9EFB</color>
+    <color name="Azul200">#268AFA</color>
+    <color name="Azul300">#0677F5</color>
+    <color name="Azul400">#0566D1</color>
+    <color name="Azul500">#0454AD</color>
+    <color name="Azul600">#044B9A</color>
+    <color name="Azul700">#034187</color>
+    <color name="Azul800">#033873</color>
+    <color name="Azul900">#022F60</color>
+
+
+    <color name="Verde100">#CCED76</color>
+    <color name="Verde200">#C2E95B</color>
+    <color name="Verde300">#B8E63F</color>
+    <color name="Verde400">#ADE224</color>
+    <color name="Verde500">#9BCC1B</color>
+    <color name="Verde600">#8AB518</color>
+    <color name="Verde700">#799F15</color>
+    <color name="Verde800">#678812</color>
+    <color name="Verde900">#56710F</color>
+
+
+    <color name="Naranja100">#FCBAA0</color>
+    <color name="Naranja200">#FCAC8D</color>
+    <color name="Naranja300">#FB9F7A</color>
+    <color name="Naranja400">#FB9167</color>
+    <color name="Naranja500">#FA8354</color>
+    <color name="Naranja600">#F96930</color>
+    <color name="Naranja700">#F84F0C</color>
+    <color name="Naranja800">#D84206</color>
+    <color name="Naranja900">#B43705</color>
+
+
 
     <color name="Gris">#A6A6AE</color>
 

@@ -15,6 +15,27 @@
     <string name="recuperar">Recuperar</string>
     <string name="iniciar_sesion">Ya tengo cuenta, iniciar sesión</string>
 
+    //Bienvenido
+    <string name="bienvenido_a">Bienvenido a</string>
+    <string name="new_school">New School</string>
+    <string name="politicas">Lee nuestra Política de Privacidad. Toca “Acepto y continúo” para aceptar los Términos de Servicio.</string>
+    <string name="acepto_continuo">Acepto y continúo</string>
+    <string name="from">from</string>
+    <string name="nto_consulting">NTO Consulting</string>
+
+    //Introduccion1
+    <string name="titulo_introduccion1">Controla Tu Progreso Escolar</string>
+    <string name="descripcion_introduccion1">Aquí podrás ver tu progreso académico en tiempo real.</string>
+    <string name="siguiente">Siguiente</string>
+
+    //Introduccion2
+    <string name="titulo_introduccion2">Visualiza tus notas</string>
+    <string name="descripcion_introduccion2">Consulta tus calificaciones en cada asignatura de forma rápida y sencilla.</string>
+
+    //Introduccion3
+    <string name="titulo_introduccion3">No Pierdas Ningún Momento</string>
+    <string name="descripcion_introduccion3">Mantente al tanto de tu asistencia en clase para un seguimiento preciso de tu participación.</string>
+    <string name="empezar">Empecemos</string>
 
     //FILTROS
     <string name="selecciona_nivel">Selecciona el nivel</string>
@@ -32,6 +53,12 @@
     <string name="grado">Grado</string>
     <string name="seccion">Sección</string>
 
+    //ProfesorActivity
+    <string name="profesor_titulo">Profesores</string>
+
+    //AlumnoActivity
+    <string name="alumno_titulo">Alumnos
+    </string>
 
 
     //AlumnoActivity
@@ -49,4 +76,6 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
