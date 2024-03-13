@@ -19,7 +19,7 @@ class NivelAdmin : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_nivel)
 
-        val btnAgregarCurso: ImageButton = findViewById(R.id.btnAgregarCurso)
+        val btnAgregarCurso: ImageButton = findViewById(R.id.btnAgregar)
         btnAgregarCurso.setOnClickListener {
             val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_new_nivel, null)
             val builder = AlertDialog.Builder(this)

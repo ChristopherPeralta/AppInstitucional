@@ -38,7 +38,7 @@ class AdministradorActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val btnAgregarCurso: ImageButton = findViewById(R.id.btnAgregarCurso)
+        val btnAgregarCurso: ImageButton = findViewById(R.id.btnAgregar)
         btnAgregarCurso.setOnClickListener {
             val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_new_course, null)
             val builder = AlertDialog.Builder(this)

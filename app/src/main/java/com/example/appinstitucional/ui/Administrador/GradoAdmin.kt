@@ -17,7 +17,7 @@ class GradoAdmin : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_grado)
 
-        val btnAgregarCurso: ImageButton = findViewById(R.id.btnAgregarCurso)
+        val btnAgregarCurso: ImageButton = findViewById(R.id.btnAgregar)
         btnAgregarCurso.setOnClickListener {
             val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_new_grado, null)
             val builder = AlertDialog.Builder(this)
