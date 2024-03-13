@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_gradient"
+    tools:context=".ui.Login.Introduccion2Fragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginVertical="88dp"
+        android:layout_marginHorizontal="16dp">
+
+
+        <ImageView
+            android:id="@+id/img_introduccion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/img_introduccion2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_bias="0"/>
+
+        <TextView
+            android:id="@+id/titulo_introduccion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/titulo_introduccion2"
+            style="@style/Titulo2"
+            android:textColor="@color/Naranja900"
+            android:textStyle="bold"
+            app:layout_constraintVertical_bias="0.1"
+            app:layout_constraintTop_toBottomOf="@+id/img_introduccion"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+        <TextView
+            android:id="@+id/descripcion_introduccion1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/descripcion_introduccion2"
+            style="@style/Normal"
+            android:textColor="@color/Azul900"
+            android:textAlignment="center"
+            android:paddingHorizontal="16dp"
+            app:layout_constraintTop_toBottomOf="@id/titulo_introduccion"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_bias="0.15"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/points_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/descripcion_introduccion1"
+            app:layout_constraintVertical_bias="0.3">
+
+            <ImageView
+                android:id="@+id/point1"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/dot"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/point2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/dot"
+                android:layout_marginStart="64dp"
+                app:layout_constraintStart_toEndOf="@id/point1"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/point3"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/dot"
+                android:layout_marginStart="64dp"
+                app:layout_constraintStart_toEndOf="@id/point2"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
