@@ -4,44 +4,72 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.Administrador.GradoAdmin">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
+        style="@style/Titulo1"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/Azul100"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/menu_administrador">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/bienvenido"
-            style="@style/Titulo2"
-            android:layout_marginStart="48dp"
-            android:textColor="@color/Azul900"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                style="@style/Titulo2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/grado"
+                android:textColor="@color/white"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <ImageButton
+                android:id="@+id/btnAgregarCurso"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_pluscircle"
+                android:background="@color/Azul100"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/toolbar_title"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="1"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/NavegacionContainer"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="32dp"
+        android:layout_marginHorizontal="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginHorizontal="16dp"
         app:layout_constraintVertical_bias="0.02">
 
         <Button
             android:id="@+id/btnNivel"
             android:layout_width="112dp"
             android:layout_height="wrap_content"
-            android:text="Nivel"
-            style="@style/Titulo4"
+            android:text="@string/nivel"
+            style="@style/admin_curso_btn_navigation"
+            android:background="@drawable/admin_curso_btn_navigation"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnGrado"
             app:layout_constraintTop_toTopOf="parent"
@@ -52,8 +80,9 @@
             android:id="@+id/btnGrado"
             android:layout_width="112dp"
             android:layout_height="wrap_content"
-            android:text="Grado"
-            style="@style/Titulo4"
+            android:text="@string/grado"
+            style="@style/admin_curso_btn_navigation"
+            android:background="@drawable/admin_curso_btn_navigation"
             app:layout_constraintStart_toEndOf="@+id/btnNivel"
             app:layout_constraintEnd_toStartOf="@+id/btnSeccion"
             app:layout_constraintTop_toTopOf="parent"
@@ -64,25 +93,85 @@
             android:id="@+id/btnSeccion"
             android:layout_width="112dp"
             android:layout_height="wrap_content"
-            android:text="Sección"
-            style="@style/Titulo4"
+            android:text="@string/seccion"
+            style="@style/admin_curso_btn_navigation"
+            android:background="@drawable/admin_curso_btn_navigation"
             app:layout_constraintStart_toEndOf="@+id/btnGrado"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_weight="1"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvNiveles"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="8dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/table"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/NavegacionContainer"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintVertical_bias="0.05">
+        <ScrollView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TableLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="*">
+
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/TableHeader"
+                            android:text="Codigo" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/TableHeader"
+                            android:text="Nivel" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/TableHeader"
+                            android:text="Grado" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/TableHeader"
+                            android:text="Accion" />
+
+                    </TableRow>
+
+                </TableLayout>
+
+            </HorizontalScrollView>
+
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/Azul100"
+        app:itemIconTint="@animator/bottom_navigation_colors"
+        app:itemTextColor="@animator/bottom_navigation_colors"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_navigation_menu"
+        tools:layout_editor_absoluteX="0dp" />
 
 
 
