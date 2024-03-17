@@ -56,6 +56,9 @@
             android:name=".ui.Profesor.CursoAsistenciaProfesor"
             android:exported="false" />
         <activity
+            android:name=".ui.Profesor.SearchProfesorActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.Administrador.AdministradorActivity"
             android:exported="true" >
         </activity>
@@ -67,6 +70,9 @@
             android:exported="false" />
         <activity
             android:name=".ui.Login.LoginActivity"
+            android:exported="true"></activity>
+        <activity
+            android:name=".ui.Profesor.CursoNotasProfesor"
             android:exported="true"></activity>
     </application>
 

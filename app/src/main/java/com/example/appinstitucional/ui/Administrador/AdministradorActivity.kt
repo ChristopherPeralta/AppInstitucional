@@ -12,6 +12,7 @@ import android.widget.ImageButton
 import android.widget.Toolbar
 import androidx.appcompat.app.AlertDialog
 import com.example.appinstitucional.R
+import com.example.appinstitucional.ui.Profesor.SearchProfesorActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class AdministradorActivity : AppCompatActivity() {
@@ -87,7 +88,7 @@ class AdministradorActivity : AppCompatActivity() {
                     true
                 }
                 R.id.iconAlumno -> {
-                    val intent = Intent(this, AlumnoAdmin::class.java)
+                    val intent = Intent(this, SearchProfesorActivity::class.java)
                     startActivity(intent)
                     true
                 }
