@@ -18,10 +18,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bienvenido"
+            android:text="@string/asistencia"
             style="@style/Titulo2"
             android:layout_marginStart="48dp"
-            android:textColor="@color/Azul900"/>
+            android:textColor="@color/white"/>
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -38,10 +38,10 @@
             android:id="@+id/btnAsistencia"
             android:layout_width="180dp"
             android:layout_height="50dp"
-            android:background="@drawable/btn_asistencia_notas"
+            android:background="@drawable/button_rectangle"
             android:text="Asistencia"
-            android:textColor="@color/Azul900"
-            style="@style/Titulo2"
+            android:textColor="@color/white"
+            style="@style/Titulo3"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btnNotas"
@@ -51,10 +51,10 @@
             android:id="@+id/btnNotas"
             android:layout_width="180dp"
             android:layout_height="50dp"
-            android:background="@drawable/btn_asistencia_notas"
+            android:background="@drawable/button_rectangle"
             android:text="Notas"
-            android:textColor="@color/Azul900"
-            style="@style/Titulo2"
+            android:textColor="@color/white"
+            style="@style/Titulo3"
             android:layout_marginStart="8dp"
             app:layout_constraintStart_toEndOf="@id/btnAsistencia"
             app:layout_constraintTop_toTopOf="parent"
@@ -163,5 +163,16 @@
             android:layout_marginTop="8dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/Azul100"
+        app:itemIconTint="@animator/bottom_navigation_colors"
+        app:itemTextColor="@animator/bottom_navigation_colors"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_navigation_menu_profesor"
+        tools:layout_editor_absoluteX="0dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

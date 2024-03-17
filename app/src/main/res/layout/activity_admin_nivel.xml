@@ -123,6 +123,7 @@
                 android:layout_height="wrap_content">
 
                 <TableLayout
+                    android:id="@+id/tableLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:stretchColumns="*">
@@ -140,11 +141,14 @@
                             style="@style/TableHeader"
                             android:text="Nivel" />
 
+                        <!--
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             style="@style/TableHeader"
                             android:text="Accion" />
+
+                            -->
 
                     </TableRow>
 

@@ -18,10 +18,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bienvenido"
+            android:text="Horario de hoy"
             style="@style/Titulo2"
             android:layout_marginStart="48dp"
-            android:textColor="@color/Azul900"/>
+            android:textColor="@color/white"/>
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -36,5 +36,16 @@
         tools:itemCount="5"
         android:id="@+id/recycler"
         android:layout_marginTop="16dp" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/Azul100"
+        app:itemIconTint="@animator/bottom_navigation_colors"
+        app:itemTextColor="@animator/bottom_navigation_colors"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_navigation_menu_profesor"
+        tools:layout_editor_absoluteX="0dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

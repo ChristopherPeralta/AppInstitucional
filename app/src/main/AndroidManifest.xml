@@ -57,7 +57,8 @@
             android:exported="false" />
         <activity
             android:name=".ui.Administrador.AdministradorActivity"
-            android:exported="false" />
+            android:exported="true" >
+        </activity>
         <activity
             android:name=".ui.Profesor.ProfesorActivity"
             android:exported="false" />

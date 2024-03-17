@@ -1,5 +1,6 @@
 package com.example.appinstitucional.ui
 
+import DatabaseHelper
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,7 +15,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val dbHelper = DatabaseHelper(this)
+        val db = dbHelper.writableDatabase
+
         val viewPager = findViewById<ViewPager2>(R.id.viewPager)
         viewPager.adapter = IntroductionPagerAdapter(this)
+
     }
 }

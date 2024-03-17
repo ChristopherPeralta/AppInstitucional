@@ -170,9 +170,9 @@
                             android:text="Telefono" />
 
                         <TextView
+                            style="@style/TableHeader"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            style="@style/TableHeader"
                             android:text="Correo" />
 
                         <TextView
