@@ -28,7 +28,7 @@
                 style="@style/Titulo2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/seccion"
+                android:text="@string/grado"
                 android:textColor="@color/white"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintTop_toTopOf="parent"
@@ -124,11 +124,14 @@
                 android:layout_height="wrap_content">
 
                 <TableLayout
+                    android:id="@+id/tableLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:stretchColumns="*">
 
-                    <TableRow>
+                    <TableRow
+                        android:id="@+id/tableHeader">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -146,12 +149,13 @@
                             android:layout_height="wrap_content"
                             style="@style/TableHeader"
                             android:text="Grado" />
-
+                        <!--
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             style="@style/TableHeader"
                             android:text="Accion" />
+                        -->
 
                     </TableRow>
 
