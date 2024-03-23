@@ -8,7 +8,7 @@
     android:padding="16dp">
 
     <EditText
-        android:id="@+id/etCourseName"
+        android:id="@+id/etNombre"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/etCourseApellidos"
+        android:id="@+id/etApellidos"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Apellidos del Profesor"
@@ -28,7 +28,7 @@
         android:paddingStart="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etCourseName"
+        app:layout_constraintTop_toBottomOf="@id/etNombre"
         android:layout_marginTop="16dp" />
 
     <EditText
@@ -40,7 +40,7 @@
         android:paddingStart="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etCourseApellidos"
+        app:layout_constraintTop_toBottomOf="@id/etApellidos"
         android:layout_marginTop="16dp" />
 
     <EditText

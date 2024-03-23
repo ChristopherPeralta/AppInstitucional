@@ -108,5 +108,75 @@ class DatabaseHelper(context: Context) :
         val db = this.writableDatabase
         db.execSQL("INSERT INTO seccion (nombre, id_grado) VALUES (?, ?)", arrayOf(nombreSeccion, idGrado))
     }
+
+    fun getProfesor(): Cursor {
+        val db = this.readableDatabase
+        return db.rawQuery("SELECT profesor.id, profesor.nombre, profesor.apellido, profesor.dni, profesor.telefono, usuario.correo FROM profesor INNER JOIN usuario ON profesor.id_usuario = usuario.id", null)
+    }
+
+    fun createProfesorAndUser(nombre: String, apellido: String, dni: String, telefono: String, correo: String, contraseña: String) {
+        val db = this.writableDatabase
+
+        // Inserta el nuevo usuario
+        val CREATE_USER = "INSERT INTO usuario (correo, contraseña) VALUES ('$correo', '$contraseña')"
+        db.execSQL(CREATE_USER)
+
+        // Obtiene el ID del nuevo usuario
+        val cursor = db.rawQuery("SELECT id FROM usuario WHERE correo = ?", arrayOf(correo))
+        val idUsuario = if (cursor.moveToFirst()) cursor.getInt(0) else null
+        cursor.close()
+
+        // Inserta el nuevo profesor
+        if (idUsuario != null) {
+            val CREATE_PROFESOR = "INSERT INTO profesor (nombre, apellido, dni, telefono, id_usuario) VALUES ('$nombre', '$apellido', '$dni', '$telefono', $idUsuario)"
+            db.execSQL(CREATE_PROFESOR)
+
+            // Obtiene el ID del rol de profesor
+            val cursorRol = db.rawQuery("SELECT id FROM rol WHERE nombre = ?", arrayOf("profesor"))
+            val idRol = if (cursorRol.moveToFirst()) cursorRol.getInt(0) else null
+            cursorRol.close()
+
+            // Inserta el rol de profesor para el nuevo usuario
+            if (idRol != null) {
+                val CREATE_USUARIO_ROL = "INSERT INTO usuario_rol (id_usuario, rol_id) VALUES ($idUsuario, $idRol)"
+                db.execSQL(CREATE_USUARIO_ROL)
+            }
+        }
+    }
+
+    fun getAlumnos(): Cursor {
+        val db = this.readableDatabase
+        return db.rawQuery("SELECT * FROM alumno", null)
+    }
+
+    fun createAlumnoAndUser(nombre: String, apellido: String, dni: String, correo: String, contraseña: String, idNivel: Int) {
+        val db = this.writableDatabase
+
+        // Inserta el nuevo usuario
+        val CREATE_USER = "INSERT INTO usuario (correo, contraseña) VALUES ('$correo', '$contraseña')"
+        db.execSQL(CREATE_USER)
+
+        // Obtiene el ID del nuevo usuario
+        val cursor = db.rawQuery("SELECT id FROM usuario WHERE correo = ?", arrayOf(correo))
+        val idUsuario = if (cursor.moveToFirst()) cursor.getInt(0) else null
+        cursor.close()
+
+        // Inserta el nuevo alumno
+        if (idUsuario != null) {
+            val CREATE_ALUMNO = "INSERT INTO alumno (nombre, apellido, dni, correo, id_usuario, nivel_id) VALUES ('$nombre', '$apellido', '$dni', '$correo', $idUsuario, $idNivel)"
+            db.execSQL(CREATE_ALUMNO)
+
+            // Obtiene el ID del rol de alumno
+            val cursorRol = db.rawQuery("SELECT id FROM rol WHERE nombre = ?", arrayOf("alumno"))
+            val idRol = if (cursorRol.moveToFirst()) cursorRol.getInt(0) else null
+            cursorRol.close()
+
+            // Inserta el rol de alumno para el nuevo usuario
+            if (idRol != null) {
+                val CREATE_USUARIO_ROL = "INSERT INTO usuario_rol (id_usuario, rol_id) VALUES ($idUsuario, $idRol)"
+                db.execSQL(CREATE_USUARIO_ROL)
+            }
+        }
+    }
 }
 
