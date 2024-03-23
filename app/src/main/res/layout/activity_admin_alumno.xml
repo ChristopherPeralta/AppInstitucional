@@ -133,11 +133,14 @@
                 android:layout_height="wrap_content">
 
                 <TableLayout
+                    android:id="@+id/tableLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:stretchColumns="*">
 
-                    <TableRow>
+                    <TableRow
+                        android:id="@+id/tableHeader">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -157,9 +160,9 @@
                             android:text="Apellido" />
 
                         <TextView
+                            style="@style/TableHeader"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            style="@style/TableHeader"
                             android:text="Nivel" />
 
                         <TextView
@@ -186,11 +189,13 @@
                             style="@style/TableHeader"
                             android:text="Correo" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/TableHeader"
-                            android:text="Acciones" />
+                        <!--
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           style="@style/TableHeader"
+                           android:text="Acciones" />
+                       -->
 
                     </TableRow>
 

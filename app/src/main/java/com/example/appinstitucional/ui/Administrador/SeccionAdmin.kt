@@ -72,7 +72,8 @@ class SeccionAdmin : AppCompatActivity() {
 
                 // Actualizar la interfaz de usuario en el hilo principal
                 runOnUiThread {
-                    val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, niveles.toList())
+                    val adapter =
+                        ArrayAdapter(this, android.R.layout.simple_spinner_item, niveles.toList())
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     spinner.adapter = adapter
                 }
@@ -80,7 +81,12 @@ class SeccionAdmin : AppCompatActivity() {
 
             // Agrega un OnItemSelectedListener al Spinner de niveles
             spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View,
+                    position: Int,
+                    id: Long
+                ) {
                     val nivelSeleccionado = parent.getItemAtPosition(position).toString()
 
                     Thread {
@@ -93,7 +99,11 @@ class SeccionAdmin : AppCompatActivity() {
 
                         // Actualizar la interfaz de usuario en el hilo principal
                         runOnUiThread {
-                            val adapterGrado = ArrayAdapter(this@SeccionAdmin, android.R.layout.simple_spinner_item, grados)
+                            val adapterGrado = ArrayAdapter(
+                                this@SeccionAdmin,
+                                android.R.layout.simple_spinner_item,
+                                grados
+                            )
                             adapterGrado.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                             spinnerGrado.adapter = adapterGrado
                         }
@@ -105,7 +115,8 @@ class SeccionAdmin : AppCompatActivity() {
                 }
             }
 
-            val btnCancel: Button = dialogView.findViewById(R.id.btnCancel) // Busca el botón btnCancel en dialogView
+            val btnCancel: Button =
+                dialogView.findViewById(R.id.btnCancel) // Busca el botón btnCancel en dialogView
             btnCancel.setOnClickListener {
                 alertDialog?.dismiss()
             }
@@ -115,15 +126,12 @@ class SeccionAdmin : AppCompatActivity() {
                 // Recoge el nombre de la sección del diálogo
                 val nombreSeccion = dialogView.findViewById<EditText>(R.id.etName).text.toString()
 
-                // Display nombreSeccion using a Toast
-                Toast.makeText(this, nombreSeccion, Toast.LENGTH_SHORT).show()
+                // Recoge el nombre del grado y del nivel del Spinner
+                val gradoSeleccionado = spinnerGrado.selectedItem.toString()
+                val nivelSeleccionado = spinner.selectedItem.toString()
 
-                // Or log it using Log.d
-                Log.d("SeccionAdmin", "nombreSeccion: $nombreSeccion")
-
-                // Recoge el ID del grado del Spinner
-                val gradoSeleccionado = spinnerGrado.selectedItem as Grado
-                val idGrado = gradoSeleccionado.id  // Obtiene el id del grado seleccionado
+                // Obtiene el id del grado seleccionado
+                val idGrado = dbHelper.getIdGradoPorNombre(gradoSeleccionado, nivelSeleccionado)
 
                 // Inserta la sección en la base de datos
                 dbHelper.insertSeccion(nombreSeccion, idGrado)
@@ -141,7 +149,7 @@ class SeccionAdmin : AppCompatActivity() {
 
     private fun fillTable() {
         val dbHelper = DatabaseHelper(this)
-        val cursor = dbHelper.getSeccionesConNivelYGrado()
+        val cursor = dbHelper.getSecciones()
 
         val tableLayout: TableLayout = findViewById(R.id.tableLayout)
         val headerIndex = tableLayout.indexOfChild(findViewById(R.id.tableHeader))

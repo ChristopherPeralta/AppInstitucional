@@ -27,9 +27,9 @@ class DatabaseHelper(context: Context) :
         val CREATE_SECCION_TABLE =
             "CREATE TABLE seccion(id INTEGER PRIMARY KEY, nombre TEXT, id_grado INTEGER, FOREIGN KEY(id_grado) REFERENCES grado(id))"
         val CREATE_ALUMNO_TABLE =
-            "CREATE TABLE alumno(id INTEGER PRIMARY KEY, nombre TEXT, apellido TEXT, dni TEXT, correo TEXT, id_usuario INTEGER, nivel_id INTEGER, FOREIGN KEY(id_usuario) REFERENCES usuario(id), FOREIGN KEY(nivel_id) REFERENCES nivel(id))"
+            "CREATE TABLE alumno(id INTEGER PRIMARY KEY, nombre TEXT, apellido TEXT, dni TEXT, id_usuario INTEGER, seccion_id INTEGER, FOREIGN KEY(id_usuario) REFERENCES usuario(id), FOREIGN KEY(seccion_id) REFERENCES seccion(id))"
         val CREATE_CURSO_TABLE =
-            "CREATE TABLE curso(id INTEGER PRIMARY KEY, nombre TEXT, horario_inicio TEXT, horario_fin TEXT, dia TEXT, aula TEXT, nivel_id INTEGER, FOREIGN KEY(nivel_id) REFERENCES nivel(id))"
+            "CREATE TABLE curso(id INTEGER PRIMARY KEY, nombre TEXT, horario_inicio TEXT, horario_fin TEXT, dia TEXT, aula TEXT, seccion_id INTEGER, FOREIGN KEY(seccion_id) REFERENCES seccion(id))"
         val CREATE_PROFESOR_CURSO_TABLE =
             "CREATE TABLE profesor_curso(id_profesor INTEGER, id_curso INTEGER, FOREIGN KEY(id_profesor) REFERENCES profesor(id), FOREIGN KEY(id_curso) REFERENCES curso(id))"
 
@@ -99,9 +99,22 @@ class DatabaseHelper(context: Context) :
         return db.rawQuery("SELECT grado.* FROM grado INNER JOIN nivel ON grado.id_nivel = nivel.id WHERE nivel.nombre = ?", arrayOf(nivel))
     }
 
-    fun getSeccionesConNivelYGrado(): Cursor {
+    fun getIdGradoPorNombre(nombre: String, nombreNivel: String): Int {
         val db = this.readableDatabase
-        return db.rawQuery("SELECT seccion.id, seccion.nombre, grado.nombre AS grado_nombre, nivel.nombre AS nivel_nombre FROM seccion INNER JOIN grado ON seccion.id_grado = grado.id INNER JOIN nivel ON grado.id_nivel = nivel.id", null)
+        val cursor = db.rawQuery("SELECT grado.id FROM grado INNER JOIN nivel ON grado.id_nivel = nivel.id WHERE grado.nombre = ? AND nivel.nombre = ?", arrayOf(nombre, nombreNivel))
+        val idGrado = if (cursor.moveToFirst()) cursor.getInt(0) else -1
+        cursor.close()
+        return idGrado
+    }
+
+    fun getSeccionesConNivelYGrado(gradoSeleccionado: String): Cursor {
+        val db = this.readableDatabase
+        return db.rawQuery("SELECT seccion.* FROM seccion INNER JOIN grado ON seccion.id_grado = grado.id WHERE grado.nombre = ?", arrayOf(gradoSeleccionado))
+    }
+
+    fun getSecciones(): Cursor {
+        val db = this.readableDatabase
+        return db.rawQuery("SELECT seccion.id, seccion.nombre, nivel.nombre AS nivel_nombre, grado.nombre AS grado_nombre FROM seccion INNER JOIN grado ON seccion.id_grado = grado.id INNER JOIN nivel ON grado.id_nivel = nivel.id", null)
     }
 
     fun insertSeccion(nombreSeccion: String, idGrado: Int) {
@@ -146,10 +159,18 @@ class DatabaseHelper(context: Context) :
 
     fun getAlumnos(): Cursor {
         val db = this.readableDatabase
-        return db.rawQuery("SELECT * FROM alumno", null)
+        val query = """
+    SELECT alumno.id, alumno.nombre, alumno.apellido, seccion.nombre AS seccion_nombre, grado.nombre AS grado_nombre, nivel.nombre AS nivel_nombre, alumno.dni, usuario.correo
+    FROM alumno
+    INNER JOIN seccion ON alumno.seccion_id = seccion.id
+    INNER JOIN grado ON seccion.id_grado = grado.id
+    INNER JOIN nivel ON grado.id_nivel = nivel.id
+    INNER JOIN usuario ON alumno.id_usuario = usuario.id
+"""
+        return db.rawQuery(query, null)
     }
 
-    fun createAlumnoAndUser(nombre: String, apellido: String, dni: String, correo: String, contraseña: String, idNivel: Int) {
+    fun createAlumnoAndUser(nombre: String, apellido: String, dni: String, correo: String, contraseña: String, idSeccion: Int) {
         val db = this.writableDatabase
 
         // Inserta el nuevo usuario
@@ -163,7 +184,7 @@ class DatabaseHelper(context: Context) :
 
         // Inserta el nuevo alumno
         if (idUsuario != null) {
-            val CREATE_ALUMNO = "INSERT INTO alumno (nombre, apellido, dni, correo, id_usuario, nivel_id) VALUES ('$nombre', '$apellido', '$dni', '$correo', $idUsuario, $idNivel)"
+            val CREATE_ALUMNO = "INSERT INTO alumno (nombre, apellido, dni, id_usuario, seccion_id) VALUES ('$nombre', '$apellido', '$dni', $idUsuario, $idSeccion)"
             db.execSQL(CREATE_ALUMNO)
 
             // Obtiene el ID del rol de alumno
