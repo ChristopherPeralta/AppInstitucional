@@ -93,5 +93,20 @@ class DatabaseHelper(context: Context) :
         val CREATE_GRADO = "INSERT INTO grado (nombre, id_nivel) VALUES ('$nombre', $idNivel)"
         db.execSQL(CREATE_GRADO)
     }
+
+    fun getGradosPorNivel(nivel: String): Cursor {
+        val db = this.readableDatabase
+        return db.rawQuery("SELECT grado.* FROM grado INNER JOIN nivel ON grado.id_nivel = nivel.id WHERE nivel.nombre = ?", arrayOf(nivel))
+    }
+
+    fun getSeccionesConNivelYGrado(): Cursor {
+        val db = this.readableDatabase
+        return db.rawQuery("SELECT seccion.id, seccion.nombre, grado.nombre AS grado_nombre, nivel.nombre AS nivel_nombre FROM seccion INNER JOIN grado ON seccion.id_grado = grado.id INNER JOIN nivel ON grado.id_nivel = nivel.id", null)
+    }
+
+    fun insertSeccion(nombreSeccion: String, idGrado: Int) {
+        val db = this.writableDatabase
+        db.execSQL("INSERT INTO seccion (nombre, id_grado) VALUES (?, ?)", arrayOf(nombreSeccion, idGrado))
+    }
 }
 
