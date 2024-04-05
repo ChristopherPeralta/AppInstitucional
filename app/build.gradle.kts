@@ -52,10 +52,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("androidx.cardview:cardview:1.0.0")
     implementation(platform("com.google.firebase:firebase-bom:32.7.4"))
-
-
-
-
+    implementation ("androidx.core:core:1.7.0")
 
     //Glide
     implementation ("com.github.bumptech.glide:glide:4.12.0")

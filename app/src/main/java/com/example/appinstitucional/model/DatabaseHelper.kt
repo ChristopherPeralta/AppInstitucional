@@ -2,6 +2,7 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.appinstitucional.model.Class.Curso
 
 class DatabaseHelper(context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
@@ -146,7 +147,7 @@ class DatabaseHelper(context: Context) :
 
             // Obtiene el ID del rol de profesor
             val cursorRol = db.rawQuery("SELECT id FROM rol WHERE nombre = ?", arrayOf("profesor"))
-            val idRol = if (cursorRol.moveToFirst()) cursorRol.getInt(0) else null
+            val idRol = 2
             cursorRol.close()
 
             // Inserta el rol de profesor para el nuevo usuario
@@ -187,17 +188,112 @@ class DatabaseHelper(context: Context) :
             val CREATE_ALUMNO = "INSERT INTO alumno (nombre, apellido, dni, id_usuario, seccion_id) VALUES ('$nombre', '$apellido', '$dni', $idUsuario, $idSeccion)"
             db.execSQL(CREATE_ALUMNO)
 
-            // Obtiene el ID del rol de alumno
-            val cursorRol = db.rawQuery("SELECT id FROM rol WHERE nombre = ?", arrayOf("alumno"))
-            val idRol = if (cursorRol.moveToFirst()) cursorRol.getInt(0) else null
+            // Obtiene el ID del rol de profesor
+            val cursorRol = db.rawQuery("SELECT id FROM rol WHERE nombre = ?", arrayOf("profesor"))
+            val idRol = 3
             cursorRol.close()
 
-            // Inserta el rol de alumno para el nuevo usuario
+            // Inserta el rol de profesor para el nuevo usuario
             if (idRol != null) {
                 val CREATE_USUARIO_ROL = "INSERT INTO usuario_rol (id_usuario, rol_id) VALUES ($idUsuario, $idRol)"
                 db.execSQL(CREATE_USUARIO_ROL)
             }
         }
     }
+
+    fun getCursos(): Cursor {
+        val db = this.readableDatabase
+        val query = """
+    SELECT curso.id, curso.nombre, curso.horario_inicio, curso.horario_fin, curso.dia, curso.aula, seccion.nombre AS seccion_nombre, grado.nombre AS grado_nombre, nivel.nombre AS nivel_nombre, profesor.nombre AS profesor_nombre
+    FROM curso
+    INNER JOIN seccion ON curso.seccion_id = seccion.id
+    INNER JOIN grado ON seccion.id_grado = grado.id
+    INNER JOIN nivel ON grado.id_nivel = nivel.id
+    INNER JOIN profesor_curso ON curso.id = profesor_curso.id_curso
+    INNER JOIN profesor ON profesor_curso.id_profesor = profesor.id
+"""
+        return db.rawQuery(query, null)
+    }
+
+    fun createCursoAndAssignProfesor(nombre: String, horario_inicio: String, horario_fin: String, dia: String, aula: String, seccion_id: Int, id_profesor: Int) {
+        val db = this.writableDatabase
+
+        // Insert the new course
+        val CREATE_CURSO = "INSERT INTO curso (nombre, horario_inicio, horario_fin, dia, aula, seccion_id) VALUES (?, ?, ?, ?, ?, ?)"
+        db.execSQL(CREATE_CURSO, arrayOf(nombre, horario_inicio, horario_fin, dia, aula, seccion_id))
+
+        val cursor = db.rawQuery(
+            "SELECT id FROM curso WHERE nombre = ? AND horario_inicio = ? AND horario_fin = ? AND dia = ? AND aula = ? AND seccion_id = ?",
+            arrayOf(nombre, horario_inicio, horario_fin, dia, aula, seccion_id.toString())
+        )
+        val id_curso = if (cursor.moveToFirst()) cursor.getInt(0) else null
+        cursor.close()
+
+        // Insert the new record into the profesor_curso table
+        if (id_curso != null) {
+            val CREATE_PROFESOR_CURSO = "INSERT INTO profesor_curso (id_profesor, id_curso) VALUES (?, ?)"
+            db.execSQL(CREATE_PROFESOR_CURSO, arrayOf(id_profesor, id_curso))
+        }
+    }
+
+    fun getProfesores(): Cursor {
+        val db = this.readableDatabase
+        return db.rawQuery("SELECT * FROM profesor", null)
+    }
+
+    fun getSeccionIdByName(seccionNombre: String): Cursor {
+        val db = this.readableDatabase
+        return db.rawQuery("SELECT id FROM seccion WHERE nombre = ?", arrayOf(seccionNombre))
+    }
+
+    fun getProfesorIdByName(profesorNombre: String): Cursor {
+        val db = this.readableDatabase
+        return db.rawQuery("SELECT id FROM profesor WHERE nombre = ?", arrayOf(profesorNombre))
+    }
+
+    fun getCursosPorProfesor(idProfesor: Int): List<Curso> {
+        val db = this.readableDatabase
+        val cursor = db.rawQuery("""
+        SELECT curso.*, seccion.nombre AS seccion_nombre, grado.nombre AS grado_nombre, nivel.nombre AS nivel_nombre
+        FROM curso
+        INNER JOIN seccion ON curso.seccion_id = seccion.id
+        INNER JOIN grado ON seccion.id_grado = grado.id
+        INNER JOIN nivel ON grado.id_nivel = nivel.id
+        INNER JOIN profesor_curso ON curso.id = profesor_curso.id_curso
+        WHERE profesor_curso.id_profesor = ?
+    """, arrayOf(idProfesor.toString()))
+        val cursos = mutableListOf<Curso>()
+        while (cursor.moveToNext()) {
+            val id = cursor.getInt(cursor.getColumnIndex("id"))
+            val nombre = cursor.getString(cursor.getColumnIndex("nombre"))
+            val horario_inicio = cursor.getString(cursor.getColumnIndex("horario_inicio"))
+            val horario_fin = cursor.getString(cursor.getColumnIndex("horario_fin"))
+            val dia = cursor.getString(cursor.getColumnIndex("dia"))
+            val aula = cursor.getString(cursor.getColumnIndex("aula"))
+            val seccion_nombre = cursor.getString(cursor.getColumnIndex("seccion_nombre"))
+            val grado_nombre = cursor.getString(cursor.getColumnIndex("grado_nombre"))
+            val nivel_nombre = cursor.getString(cursor.getColumnIndex("nivel_nombre"))
+            cursos.add(Curso(id, nombre, horario_inicio, horario_fin, dia, aula, seccion_nombre, grado_nombre, nivel_nombre))
+        }
+        cursor.close()
+        return cursos
+    }
+
+    fun getIdProfesor(correo: String, contraseña: String): Int {
+        val db = this.readableDatabase
+        val cursor = db.rawQuery("""
+        SELECT profesor.id 
+        FROM profesor 
+        INNER JOIN usuario ON profesor.id_usuario = usuario.id 
+        WHERE usuario.correo = ? AND usuario.contraseña = ?
+    """, arrayOf(correo, contraseña))
+        var idProfesor = -1
+        if (cursor.moveToFirst()) {
+            idProfesor = cursor.getInt(cursor.getColumnIndex("id"))
+        }
+        cursor.close()
+        return idProfesor
+    }
+
 }
 

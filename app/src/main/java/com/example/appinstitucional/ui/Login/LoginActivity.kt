@@ -1,6 +1,7 @@
 package com.example.appinstitucional.ui.Login
 
 import DatabaseHelper
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -37,7 +38,11 @@ class LoginActivity : AppCompatActivity() {
             val intent = when (rol) {
                 "admin" -> Intent(this, AdministradorActivity::class.java)
                 "alumno" -> Intent(this, AlumnoActivity::class.java)
-                "profesor" -> Intent(this, ProfesorActivity::class.java)
+                "profesor" -> {
+                    val idProfesor = dbHelper.getIdProfesor(correo, contraseña)
+                    storeProfesorId(idProfesor)
+                    Intent(this, ProfesorActivity::class.java)
+                }
                 else -> null
             }
 
@@ -47,7 +52,12 @@ class LoginActivity : AppCompatActivity() {
                 // Mostrar un mensaje de error al usuario
             }
         }
+    }
 
-
+    private fun storeProfesorId(idProfesor: Int) {
+        val sharedPreferences = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putInt("idProfesor", idProfesor)
+        editor.apply()
     }
 }

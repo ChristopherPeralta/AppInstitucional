@@ -29,6 +29,8 @@ class NivelAdmin : AppCompatActivity() {
         val dbHelper = DatabaseHelper(this)
         val cursor = dbHelper.getNiveles()
 
+        fillTable()
+
         //BOTON AGREGAR NIVEL
         val btnAgregarNivel: ImageButton = findViewById(R.id.btnAgregar)
         btnAgregarNivel.setOnClickListener {
@@ -47,7 +49,7 @@ class NivelAdmin : AppCompatActivity() {
                 if (nombreNivel in listOf("inicial", "primaria", "secundaria")) {
                     // Inserta el nivel en la base de datos
                     dbHelper.insertNivel(nombreNivel)
-
+                    fillTable() // Actualiza la tabla
                     alertDialog.dismiss() // Cierra el diálogo
                 } else {
                     // Muestra un mensaje de error al usuario
@@ -62,27 +64,50 @@ class NivelAdmin : AppCompatActivity() {
             }
         }
 
-        val tableLayout = findViewById<TableLayout>(R.id.tableLayout)
-
-        while (cursor.moveToNext()) {
-            val row = TableRow(this)
-            val id = TextView(this)
-            id.text = cursor.getInt(cursor.getColumnIndex("id")).toString()
-            id.gravity = Gravity.CENTER  // Centra el texto
-            row.addView(id)
-            val nombre = TextView(this)
-            nombre.text = cursor.getString(cursor.getColumnIndex("nombre"))
-            nombre.gravity = Gravity.CENTER  // Centra el texto
-            row.addView(nombre)
-            tableLayout.addView(row)
-        }
-        cursor.close()
         
 
         navigationCourse()
         updateNavigationSelection()
         OnNavigationItemSelectedListener()
 
+    }
+
+    private fun fillTable() {
+        val dbHelper = DatabaseHelper(this)
+        val cursor = dbHelper.getNiveles()
+
+        val tableLayout: TableLayout = findViewById(R.id.tableLayout)
+        val headerIndex = tableLayout.indexOfChild(findViewById(R.id.tableHeader))
+
+        // Remove all rows except the first one
+        for (i in tableLayout.childCount - 1 downTo headerIndex + 1) {
+            tableLayout.removeViewAt(i)
+        }
+
+        while (cursor.moveToNext()) {
+            // Create a new row
+            val tableRow = TableRow(this)
+
+            // Get the data from the current row
+            val id = cursor.getInt(cursor.getColumnIndex("id"))
+            val nombre = cursor.getString(cursor.getColumnIndex("nombre"))
+
+            // Create a TextView for each field
+            val textViewId = TextView(this)
+            textViewId.text = id.toString()
+            textViewId.gravity = Gravity.CENTER  // Center the text
+
+            val textViewNombre = TextView(this)
+            textViewNombre.text = nombre
+            textViewNombre.gravity = Gravity.CENTER  // Center the text
+
+            // Add the TextViews to the row
+            tableRow.addView(textViewId)
+            tableRow.addView(textViewNombre)
+
+            // Add the row to the TableLayout
+            tableLayout.addView(tableRow)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

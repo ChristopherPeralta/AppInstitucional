@@ -309,11 +309,13 @@
             android:layout_height="wrap_content">
 
             <TableLayout
+                android:id="@+id/tableLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:stretchColumns="*">
 
-                <TableRow>
+                <TableRow
+                    android:id="@+id/tableHeader">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -327,28 +329,40 @@
                         android:text="Curso" />
 
                     <TextView
+                        style="@style/TableHeader"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/TableHeader"
-                        android:text="Nivel" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/TableHeader"
                         android:text="Grado" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/TableHeader"
+                        android:text="Nivel" />
+
+                    <TextView
+                        style="@style/TableHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:text="Seccion" />
 
                     <TextView
                         style="@style/TableHeader"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Horario" />
+                        android:text="HorarioInicio" />
+
+                    <TextView
+                        style="@style/TableHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="HorarioFin" />
+
+                    <TextView
+                        style="@style/TableHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Dia" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -362,11 +376,6 @@
                         style="@style/TableHeader"
                         android:text="Profesor" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/TableHeader"
-                        android:text="Acciones" />
                 </TableRow>
 
             </TableLayout>

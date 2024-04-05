@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <EditText
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <EditText
         android:id="@+id/etCourseName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -19,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="16dp" />
 
-    <Spinner
+        <Spinner
         android:id="@+id/spinnerCourseLevel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -30,7 +34,7 @@
         app:layout_constraintTop_toBottomOf="@id/etCourseName"
         android:layout_marginTop="16dp" />
 
-    <Spinner
+        <Spinner
         android:id="@+id/spinnerCourseGrade"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -41,7 +45,7 @@
         app:layout_constraintTop_toBottomOf="@id/spinnerCourseLevel"
         android:layout_marginTop="16dp" />
 
-    <Spinner
+        <Spinner
         android:id="@+id/spinnerCourseSection"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -52,12 +56,11 @@
         app:layout_constraintTop_toBottomOf="@id/spinnerCourseGrade"
         android:layout_marginTop="16dp" />
 
-
-    <EditText
-        android:id="@+id/etCourseSchedule"
+        <EditText
+        android:id="@+id/etHorarioInicio"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Horario del curso"
+        android:hint="Horario inicio"
         android:background="@drawable/edit_text_border"
         android:paddingStart="16dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,7 +68,31 @@
         app:layout_constraintTop_toBottomOf="@id/spinnerCourseSection"
         android:layout_marginTop="16dp" />
 
-    <EditText
+        <EditText
+            android:id="@+id/etHorarioFin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Horario fin"
+            android:background="@drawable/edit_text_border"
+            android:paddingStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etHorarioInicio"
+            android:layout_marginTop="16dp" />
+
+        <EditText
+            android:id="@+id/etDia"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Dia"
+            android:background="@drawable/edit_text_border"
+            android:paddingStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etHorarioFin"
+            android:layout_marginTop="16dp" />
+
+        <EditText
         android:id="@+id/etCourseClassroom"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -74,10 +101,10 @@
         android:paddingStart="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etCourseSchedule"
+        app:layout_constraintTop_toBottomOf="@id/etDia"
         android:layout_marginTop="16dp" />
 
-    <Spinner
+        <Spinner
         android:id="@+id/spinnerCourseTeacher"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -88,7 +115,7 @@
         app:layout_constraintTop_toBottomOf="@id/etCourseClassroom"
         android:layout_marginTop="16dp" />
 
-    <Button
+        <Button
         android:id="@+id/btnCreateCourse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -103,7 +130,7 @@
         app:layout_constraintEnd_toStartOf="@+id/btnCancel"
         app:layout_constraintTop_toBottomOf="@id/spinnerCourseTeacher" />
 
-    <Button
+        <Button
         android:id="@+id/btnCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -119,4 +146,5 @@
         app:layout_constraintStart_toEndOf="@id/btnCreateCourse"
         app:layout_constraintTop_toBottomOf="@id/spinnerCourseTeacher" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

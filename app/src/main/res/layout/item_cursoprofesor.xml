@@ -19,47 +19,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/IconoCursoContainer"
-            android:layout_width="63dp"
-            android:layout_height="0dp"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/descripcionCursoContainer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <View
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/admin_curso_btn_navigation"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tvInitial"
-                style="@style/Titulo2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="C"
-                android:textColor="@color/Azul900"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/descripcionCursoContainer"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/aulaCurso"
-            app:layout_constraintStart_toEndOf="@+id/IconoCursoContainer"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
@@ -70,9 +37,23 @@
                 android:text="NombreCurso"
                 android:textColor="@color/Azul900"
                 app:layout_constraintBottom_toTopOf="@id/tvHoraInicio"
-                app:layout_constraintEnd_toStartOf="@id/tvGrado"
+                app:layout_constraintEnd_toStartOf="@id/tvNivel"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/tvNivel"
+                style="@style/Titulo4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nivel"
+                android:textColor="@color/Azul900"
+                app:layout_constraintBottom_toTopOf="@id/tvHoraInicio"
+                app:layout_constraintEnd_toStartOf="@id/tvGrado"
+                app:layout_constraintStart_toEndOf="@+id/tvNombreCurso"
+                app:layout_constraintTop_toTopOf="parent" />
+
 
             <TextView
                 android:id="@+id/tvGrado"
@@ -83,7 +64,7 @@
                 android:textColor="@color/Azul900"
                 app:layout_constraintBottom_toTopOf="@id/tvHoraInicio"
                 app:layout_constraintEnd_toStartOf="@id/tvSeccion"
-                app:layout_constraintStart_toEndOf="@+id/tvNombreCurso"
+                app:layout_constraintStart_toEndOf="@+id/tvNivel"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -99,15 +80,39 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/HoraInicio"
+                style="@style/Normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Horario :"
+                android:textColor="@color/Azul900"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tvHoraInicio"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvNombreCurso" />
+
+            <TextView
                 android:id="@+id/tvHoraInicio"
                 style="@style/Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="HoraInicio"
+                android:text="00"
                 android:textColor="@color/Azul500"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/HoraFin"
+                app:layout_constraintStart_toEndOf="@id/HoraInicio"
+                app:layout_constraintTop_toBottomOf="@id/tvNombreCurso" />
+
+            <TextView
+                android:id="@+id/HoraFin"
+                style="@style/Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:textColor="@color/Azul900"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/tvHoraFin"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvHoraInicio"
                 app:layout_constraintTop_toBottomOf="@id/tvNombreCurso" />
 
             <TextView
@@ -115,19 +120,28 @@
                 style="@style/Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="HoraFin"
+                android:text="00"
                 android:textColor="@color/Azul500"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/tvHoraInicio"
+                app:layout_constraintStart_toEndOf="@id/HoraFin"
                 app:layout_constraintTop_toBottomOf="@id/tvNombreCurso" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/Verde500"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/descripcionCursoContainer"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/aulaCurso"
             android:layout_width="69dp"
             android:layout_height="0dp"
             android:textAlignment="center"
+            android:background="@color/Verde100"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/descripcionCursoContainer"
