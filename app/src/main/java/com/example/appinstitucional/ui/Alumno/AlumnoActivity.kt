@@ -40,7 +40,7 @@ class AlumnoActivity : AppCompatActivity() {
         val cursos = databaseHelper.getCursosPorAlumno(idAlumno)
 
         viewManager = LinearLayoutManager(this)
-        viewAdapter = CursoAlumnoAdapter(cursos) // Usa CursoAdapter en lugar de MyAdapter
+        viewAdapter = CursoAlumnoAdapter(cursos, idAlumno) // Usa CursoAdapter en lugar de MyAdapter
 
         recyclerView = findViewById<RecyclerView>(R.id.recycler).apply {
             setHasFixedSize(true)

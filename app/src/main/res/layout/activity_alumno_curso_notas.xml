@@ -11,17 +11,18 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/Azul100"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/textViewCursoName"
+            style="@style/Titulo2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/asistencia"
-            style="@style/Titulo2"
             android:layout_marginStart="48dp"
-            android:textColor="@color/white"/>
+            android:text="@string/notas"
+            android:textColor="@color/white" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -29,37 +30,37 @@
         android:id="@+id/AsistenciaNotasContainer"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <Button
             android:id="@+id/btnAsistencia"
+            style="@style/Titulo3"
             android:layout_width="180dp"
             android:layout_height="50dp"
             android:background="@drawable/button_rectangle"
             android:text="Asistencia"
             android:textColor="@color/white"
-            style="@style/Titulo3"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btnNotas"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/btnNotas"
+            style="@style/Titulo3"
             android:layout_width="180dp"
             android:layout_height="50dp"
+            android:layout_marginStart="8dp"
             android:background="@drawable/button_rectangle"
             android:text="Notas"
             android:textColor="@color/white"
-            style="@style/Titulo3"
-            android:layout_marginStart="8dp"
-            app:layout_constraintStart_toEndOf="@id/btnAsistencia"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintStart_toEndOf="@id/btnAsistencia"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
@@ -67,100 +68,160 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_alumno_notas"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.1"
-        app:layout_constraintTop_toBottomOf="@id/AsistenciaNotasContainer"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/AsistenciaNotasContainer"
+        app:layout_constraintVertical_bias="0.1" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/imgAlumnoNotas"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgAlumnoNotas"
         app:layout_constraintVertical_bias="0.2">
 
         <TextView
             android:id="@+id/tvAlumnoNotas"
+            style="@style/Titulo1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Notas"
-            style="@style/Titulo1"
             android:textColor="@color/Azul900"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_chainStyle="spread"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread" />
 
         <TextView
             android:id="@+id/tvTrimestre1"
+            style="@style/Titulo4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="1er Trimestre: "
-            style="@style/Titulo4"
-            app:layout_constraintTop_toBottomOf="@id/tvAlumnoNotas"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.2"
-            android:layout_marginTop="16dp"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvAlumnoNotas" />
+
+        <TextView
+            android:id="@+id/tvN1"
+            style="@style/Titulo4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="00 "
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.45"
+            app:layout_constraintStart_toEndOf="@id/tvTrimestre1"
+            app:layout_constraintTop_toBottomOf="@id/tvAlumnoNotas" />
 
         <TextView
             android:id="@+id/tvTrimestre2"
+            style="@style/Titulo4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="2do Trimestre: "
-            style="@style/Titulo4"
-            app:layout_constraintTop_toBottomOf="@id/tvTrimestre1"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.2"
-            android:layout_marginTop="16dp"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTrimestre1" />
+
+        <TextView
+            android:id="@+id/tvN2"
+            style="@style/Titulo4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="00 "
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.44"
+            app:layout_constraintStart_toEndOf="@id/tvTrimestre2"
+            app:layout_constraintTop_toBottomOf="@id/tvN1" />
 
         <TextView
             android:id="@+id/tvTrimestre3"
+            style="@style/Titulo4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="3er Trimestre: "
-            style="@style/Titulo4"
-            app:layout_constraintTop_toBottomOf="@id/tvTrimestre2"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.2"
-            android:layout_marginTop="16dp"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTrimestre2" />
+
+        <TextView
+            android:id="@+id/tvN3"
+            style="@style/Titulo4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="00 "
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.45"
+            app:layout_constraintStart_toEndOf="@id/tvTrimestre3"
+            app:layout_constraintTop_toBottomOf="@id/tvN2" />
 
         <TextView
             android:id="@+id/tvTrimestre4"
+            style="@style/Titulo4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="4to Trimestre: "
-            style="@style/Titulo4"
-            app:layout_constraintTop_toBottomOf="@id/tvTrimestre3"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.2"
-            android:layout_marginTop="16dp"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTrimestre3" />
+
+        <TextView
+            android:id="@+id/tvN4"
+            style="@style/Titulo4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="00 "
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.45"
+            app:layout_constraintStart_toEndOf="@id/tvTrimestre4"
+            app:layout_constraintTop_toBottomOf="@id/tvN3" />
 
         <View
             android:id="@+id/divider1"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/Azul100"
             android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/tvTrimestre4"/>
+            android:background="@color/Azul100"
+            app:layout_constraintTop_toBottomOf="@id/tvTrimestre4" />
+
+        <TextView
+            android:id="@+id/tvProm"
+            style="@style/Titulo4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Promedio: "
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider1" />
 
         <TextView
             android:id="@+id/tvPromedio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Promedio: "
             style="@style/Titulo4"
-            app:layout_constraintTop_toBottomOf="@id/divider1"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="00 "
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.2"
-            android:layout_marginTop="8dp"/>
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@id/tvProm"
+            app:layout_constraintTop_toBottomOf="@id/divider1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -175,4 +236,11 @@
         app:menu="@menu/bottom_navigation_menu_profesor"
         tools:layout_editor_absoluteX="0dp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="267dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
