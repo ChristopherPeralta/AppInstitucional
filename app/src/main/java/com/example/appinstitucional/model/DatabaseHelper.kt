@@ -37,7 +37,8 @@ class DatabaseHelper(context: Context) :
             "CREATE TABLE profesor_curso(id_profesor INTEGER, id_curso INTEGER, FOREIGN KEY(id_profesor) REFERENCES profesor(id), FOREIGN KEY(id_curso) REFERENCES curso(id))"
         val CREATE_NOTAS_TABLE =
             "CREATE TABLE notas(id INTEGER PRIMARY KEY, id_alumno INTEGER, id_curso INTEGER, n1 REAL, n2 REAL, n3 REAL, n4 REAL, promedio REAL, FOREIGN KEY(id_alumno) REFERENCES alumno(id), FOREIGN KEY(id_curso) REFERENCES curso(id))"
-
+        val CREATE_ALUMNO_CURSO_TABLE =
+            "CREATE TABLE alumno_curso (id_alumno INTEGER, id_curso INTEGER, FOREIGN KEY(id_alumno) REFERENCES alumno(id),FOREIGN KEY(id_curso) REFERENCES curso(id))"
 
         db.execSQL(CREATE_USER_TABLE)
         db.execSQL(CREATE_ROL_TABLE)
@@ -49,7 +50,9 @@ class DatabaseHelper(context: Context) :
         db.execSQL(CREATE_ALUMNO_TABLE)
         db.execSQL(CREATE_CURSO_TABLE)
         db.execSQL(CREATE_PROFESOR_CURSO_TABLE)
+
         db.execSQL(CREATE_NOTAS_TABLE)
+        db.execSQL(CREATE_ALUMNO_CURSO_TABLE)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
@@ -63,6 +66,9 @@ class DatabaseHelper(context: Context) :
         db.execSQL("DROP TABLE IF EXISTS alumno")
         db.execSQL("DROP TABLE IF EXISTS curso")
         db.execSQL("DROP TABLE IF EXISTS profesor_curso")
+        db.execSQL("DROP TABLE IF EXISTS notas")
+        db.execSQL("DROP TABLE IF EXISTS alumno_curso")
+
 
         onCreate(db)
     }
@@ -224,22 +230,44 @@ class DatabaseHelper(context: Context) :
     fun createCursoAndAssignProfesor(nombre: String, horario_inicio: String, horario_fin: String, dia: String, aula: String, seccion_id: Int, id_profesor: Int) {
         val db = this.writableDatabase
 
-        // Insert the new course
-        val CREATE_CURSO = "INSERT INTO curso (nombre, horario_inicio, horario_fin, dia, aula, seccion_id) VALUES (?, ?, ?, ?, ?, ?)"
-        db.execSQL(CREATE_CURSO, arrayOf(nombre, horario_inicio, horario_fin, dia, aula, seccion_id))
-
-        val cursor = db.rawQuery(
+        // Verifica si el curso ya existe en la base de datos
+        val cursorCursoExistente = db.rawQuery(
             "SELECT id FROM curso WHERE nombre = ? AND horario_inicio = ? AND horario_fin = ? AND dia = ? AND aula = ? AND seccion_id = ?",
             arrayOf(nombre, horario_inicio, horario_fin, dia, aula, seccion_id.toString())
         )
-        val id_curso = if (cursor.moveToFirst()) cursor.getInt(0) else null
-        cursor.close()
+        if (cursorCursoExistente.count == 0) {
+            // Inserta el nuevo curso
+            val CREATE_CURSO = "INSERT INTO curso (nombre, horario_inicio, horario_fin, dia, aula, seccion_id) VALUES (?, ?, ?, ?, ?, ?)"
+            db.execSQL(CREATE_CURSO, arrayOf(nombre, horario_inicio, horario_fin, dia, aula, seccion_id))
 
-        // Insert the new record into the profesor_curso table
-        if (id_curso != null) {
-            val CREATE_PROFESOR_CURSO = "INSERT INTO profesor_curso (id_profesor, id_curso) VALUES (?, ?)"
-            db.execSQL(CREATE_PROFESOR_CURSO, arrayOf(id_profesor, id_curso))
+            val cursor = db.rawQuery(
+                "SELECT id FROM curso WHERE nombre = ? AND horario_inicio = ? AND horario_fin = ? AND dia = ? AND aula = ? AND seccion_id = ?",
+                arrayOf(nombre, horario_inicio, horario_fin, dia, aula, seccion_id.toString())
+            )
+            val id_curso = if (cursor.moveToFirst()) cursor.getInt(0) else null
+            cursor.close()
+
+            // Inserta el nuevo registro en la tabla profesor_curso
+            if (id_curso != null) {
+                val CREATE_PROFESOR_CURSO = "INSERT INTO profesor_curso (id_profesor, id_curso) VALUES (?, ?)"
+                db.execSQL(CREATE_PROFESOR_CURSO, arrayOf(id_profesor, id_curso))
+
+                // Obtiene todos los alumnos de la sección
+                val cursorAlumnos = db.rawQuery("SELECT id FROM alumno WHERE seccion_id = ?", arrayOf(seccion_id.toString()))
+
+                // Para cada alumno en la sección, añádelo al curso
+                while (cursorAlumnos.moveToNext()) {
+                    val idAlumno = cursorAlumnos.getInt(0)
+
+                    // Inserta el nuevo registro en la tabla alumno_curso
+                    val ADD_ALUMNO_CURSO = "INSERT INTO alumno_curso (id_alumno, id_curso) VALUES (?, ?)"
+                    db.execSQL(ADD_ALUMNO_CURSO, arrayOf(idAlumno, id_curso))
+                }
+
+                cursorAlumnos.close()
+            }
         }
+        cursorCursoExistente.close()
     }
 
     fun getProfesores(): Cursor {
@@ -300,6 +328,24 @@ class DatabaseHelper(context: Context) :
         cursor.close()
         return idProfesor
     }
+
+    fun getIdAlumno(correo: String, contraseña: String): Int {
+        val db = this.readableDatabase
+        val cursor = db.rawQuery("""
+        SELECT alumno.id 
+        FROM alumno 
+        INNER JOIN usuario ON alumno.id_usuario = usuario.id 
+        WHERE usuario.correo = ? AND usuario.contraseña = ?
+    """, arrayOf(correo, contraseña))
+        var idAlumno = -1
+        if (cursor.moveToFirst()) {
+            idAlumno = cursor.getInt(cursor.getColumnIndex("id"))
+        }
+        cursor.close()
+        return idAlumno
+    }
+
+
 
     fun addAsistencia(idAlumno: Int, fecha: String) {
         val db = this.writableDatabase
@@ -379,6 +425,36 @@ class DatabaseHelper(context: Context) :
         contentValues.put("n3", notas[2])
         contentValues.put("n4", notas[3])
         db.insert("notas", null, contentValues)
+    }
+
+
+    //ALUMNO
+
+    fun getCursosPorAlumno(idAlumno: Int): List<Curso> {
+        val db = this.readableDatabase
+        val cursor = db.rawQuery("""
+        SELECT curso.*, seccion.nombre AS seccion_nombre, grado.nombre AS grado_nombre, nivel.nombre AS nivel_nombre
+        FROM curso
+        INNER JOIN seccion ON curso.seccion_id = seccion.id
+        INNER JOIN grado ON seccion.id_grado = grado.id
+        INNER JOIN nivel ON grado.id_nivel = nivel.id
+        INNER JOIN alumno_curso ON curso.id = alumno_curso.id_curso
+        WHERE alumno_curso.id_alumno = ?
+    """, arrayOf(idAlumno.toString()))
+        val cursos = mutableListOf<Curso>()
+        while (cursor.moveToNext()) {
+            val id = cursor.getInt(cursor.getColumnIndex("id"))
+            val nombre = cursor.getString(cursor.getColumnIndex("nombre"))
+            val horario_inicio = cursor.getString(cursor.getColumnIndex("horario_inicio"))
+            val horario_fin = cursor.getString(cursor.getColumnIndex("horario_fin"))
+            val aula = cursor.getString(cursor.getColumnIndex("aula"))
+            val seccion_nombre = cursor.getString(cursor.getColumnIndex("seccion_nombre"))
+            val grado_nombre = cursor.getString(cursor.getColumnIndex("grado_nombre"))
+            val nivel_nombre = cursor.getString(cursor.getColumnIndex("nivel_nombre"))
+            cursos.add(Curso(id, nombre, horario_inicio, horario_fin, aula, seccion_nombre, grado_nombre, nivel_nombre))
+        }
+        cursor.close()
+        return cursos
     }
 }
 

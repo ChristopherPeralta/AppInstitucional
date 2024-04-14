@@ -27,6 +27,8 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+
+
         val btnIngresar = findViewById<Button>(R.id.btnIngresar)
         btnIngresar.setOnClickListener {
             val correo = email.text.toString()
@@ -37,7 +39,11 @@ class LoginActivity : AppCompatActivity() {
 
             val intent = when (rol) {
                 "admin" -> Intent(this, AdministradorActivity::class.java)
-                "alumno" -> Intent(this, AlumnoActivity::class.java)
+                "alumno" -> {
+                    val idAlumno = dbHelper.getIdAlumno(correo, contraseña)
+                    storeAlumnoId(idAlumno)
+                    Intent(this, AlumnoActivity::class.java)
+                }
                 "profesor" -> {
                     val idProfesor = dbHelper.getIdProfesor(correo, contraseña)
                     storeProfesorId(idProfesor)
@@ -52,6 +58,13 @@ class LoginActivity : AppCompatActivity() {
                 // Mostrar un mensaje de error al usuario
             }
         }
+    }
+
+    private fun storeAlumnoId(idAlumno: Int) {
+        val sharedPreferences = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putInt("idAlumno", idAlumno)
+        editor.apply()
     }
 
     private fun storeProfesorId(idProfesor: Int) {

@@ -2,6 +2,7 @@ package com.example.appinstitucional.ui
 
 import DatabaseHelper
 import android.annotation.SuppressLint
+import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.viewpager2.widget.ViewPager2
@@ -18,12 +19,28 @@ class MainActivity : AppCompatActivity() {
         val dbHelper = DatabaseHelper(this)
         val db = dbHelper.writableDatabase
 
+        //borrarTodosLosDatos()
+
+
         val viewPager = findViewById<ViewPager2>(R.id.viewPager)
         viewPager.adapter = IntroductionPagerAdapter(this)
 
         Rol()
         Usuario_Rol()
     }
+
+    /*
+    private fun borrarTodosLosDatos() {
+        val db = DatabaseHelper(this).writableDatabase
+
+        val tablas = arrayOf("usuario", "rol", "usuario_rol", "nivel", "grado", "seccion", "profesor", "alumno", "curso", "notas")
+
+        for (tabla in tablas) {
+            db.execSQL("DELETE FROM $tabla")
+        }
+    }
+
+     */
 
     private fun Usuario_Rol() {
         val db = DatabaseHelper(this).writableDatabase
