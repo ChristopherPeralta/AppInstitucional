@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/etN1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/edit_text_border"
+        android:hint="Nota 1"
+        android:paddingStart="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etN2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Nota 2"
+        android:background="@drawable/edit_text_border"
+        android:paddingStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etN1"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/etN3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Nota 3"
+        android:background="@drawable/edit_text_border"
+        android:paddingStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etN2"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/etN4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Nota 4"
+        android:background="@drawable/edit_text_border"
+        android:paddingStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etN3"
+        android:layout_marginTop="16dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

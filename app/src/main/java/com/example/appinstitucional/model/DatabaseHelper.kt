@@ -1,3 +1,5 @@
+import android.annotation.SuppressLint
+import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
@@ -8,7 +10,7 @@ class DatabaseHelper(context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object {
-        private const val DATABASE_NAME = "bd_colegio"
+        const val DATABASE_NAME = "bd_colegio"
         private const val DATABASE_VERSION = 1
     }
 
@@ -30,9 +32,12 @@ class DatabaseHelper(context: Context) :
         val CREATE_ALUMNO_TABLE =
             "CREATE TABLE alumno(id INTEGER PRIMARY KEY, nombre TEXT, apellido TEXT, dni TEXT, id_usuario INTEGER, seccion_id INTEGER, FOREIGN KEY(id_usuario) REFERENCES usuario(id), FOREIGN KEY(seccion_id) REFERENCES seccion(id))"
         val CREATE_CURSO_TABLE =
-            "CREATE TABLE curso(id INTEGER PRIMARY KEY, nombre TEXT, horario_inicio TEXT, horario_fin TEXT, dia TEXT, aula TEXT, seccion_id INTEGER, FOREIGN KEY(seccion_id) REFERENCES seccion(id))"
+            "CREATE TABLE curso(id INTEGER PRIMARY KEY, nombre TEXT, horario_inicio TEXT, horario_fin TEXT, dia TEXT,aula TEXT, seccion_id INTEGER, FOREIGN KEY(seccion_id) REFERENCES seccion(id))"
         val CREATE_PROFESOR_CURSO_TABLE =
             "CREATE TABLE profesor_curso(id_profesor INTEGER, id_curso INTEGER, FOREIGN KEY(id_profesor) REFERENCES profesor(id), FOREIGN KEY(id_curso) REFERENCES curso(id))"
+        val CREATE_NOTAS_TABLE =
+            "CREATE TABLE notas(id INTEGER PRIMARY KEY, id_alumno INTEGER, id_curso INTEGER, n1 REAL, n2 REAL, n3 REAL, n4 REAL, promedio REAL, FOREIGN KEY(id_alumno) REFERENCES alumno(id), FOREIGN KEY(id_curso) REFERENCES curso(id))"
+
 
         db.execSQL(CREATE_USER_TABLE)
         db.execSQL(CREATE_ROL_TABLE)
@@ -44,6 +49,7 @@ class DatabaseHelper(context: Context) :
         db.execSQL(CREATE_ALUMNO_TABLE)
         db.execSQL(CREATE_CURSO_TABLE)
         db.execSQL(CREATE_PROFESOR_CURSO_TABLE)
+        db.execSQL(CREATE_NOTAS_TABLE)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
@@ -251,6 +257,7 @@ class DatabaseHelper(context: Context) :
         return db.rawQuery("SELECT id FROM profesor WHERE nombre = ?", arrayOf(profesorNombre))
     }
 
+    @SuppressLint("Range")
     fun getCursosPorProfesor(idProfesor: Int): List<Curso> {
         val db = this.readableDatabase
         val cursor = db.rawQuery("""
@@ -268,12 +275,11 @@ class DatabaseHelper(context: Context) :
             val nombre = cursor.getString(cursor.getColumnIndex("nombre"))
             val horario_inicio = cursor.getString(cursor.getColumnIndex("horario_inicio"))
             val horario_fin = cursor.getString(cursor.getColumnIndex("horario_fin"))
-            val dia = cursor.getString(cursor.getColumnIndex("dia"))
             val aula = cursor.getString(cursor.getColumnIndex("aula"))
             val seccion_nombre = cursor.getString(cursor.getColumnIndex("seccion_nombre"))
             val grado_nombre = cursor.getString(cursor.getColumnIndex("grado_nombre"))
             val nivel_nombre = cursor.getString(cursor.getColumnIndex("nivel_nombre"))
-            cursos.add(Curso(id, nombre, horario_inicio, horario_fin, dia, aula, seccion_nombre, grado_nombre, nivel_nombre))
+            cursos.add(Curso(id, nombre, horario_inicio, horario_fin, aula, seccion_nombre, grado_nombre, nivel_nombre))
         }
         cursor.close()
         return cursos
@@ -295,5 +301,84 @@ class DatabaseHelper(context: Context) :
         return idProfesor
     }
 
+    fun addAsistencia(idAlumno: Int, fecha: String) {
+        val db = this.writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put("id_alumno", idAlumno)
+        contentValues.put("fecha", fecha)
+        db.insert("asistencia", null, contentValues)
+    }
+
+    fun getAlumnosPorSeccion(idSeccion: Int): Cursor {
+        val db = this.readableDatabase
+        return db.rawQuery("SELECT * FROM alumno WHERE seccion_id = ?", arrayOf(idSeccion.toString()))
+    }
+
+    fun getCursoById(id: Int): Curso? {
+        val db = this.readableDatabase
+        val cursor = db.rawQuery("""
+        SELECT curso.id, curso.nombre, curso.horario_inicio, curso.horario_fin, curso.aula, seccion.nombre AS seccion_nombre, grado.nombre AS grado_nombre, nivel.nombre AS nivel_nombre
+        FROM curso
+        INNER JOIN seccion ON curso.seccion_id = seccion.id
+        INNER JOIN grado ON seccion.id_grado = grado.id
+        INNER JOIN nivel ON grado.id_nivel = nivel.id
+        WHERE curso.id = ?
+    """, arrayOf(id.toString()))
+        val curso = if (cursor.moveToFirst()) {
+            Curso(
+                cursor.getInt(cursor.getColumnIndex("id")),
+                cursor.getString(cursor.getColumnIndex("nombre")),
+                cursor.getString(cursor.getColumnIndex("horario_inicio")),
+                cursor.getString(cursor.getColumnIndex("horario_fin")),
+                cursor.getString(cursor.getColumnIndex("aula")),
+                cursor.getString(cursor.getColumnIndex("seccion_nombre")),
+                cursor.getString(cursor.getColumnIndex("grado_nombre")),
+                cursor.getString(cursor.getColumnIndex("nivel_nombre"))
+            )
+        } else null
+        cursor.close()
+        return curso
+    }
+
+    fun getAlumnosPorCurso(idCurso: Int): Cursor {
+        val db = this.readableDatabase
+        return db.rawQuery("""
+        SELECT alumno.id, alumno.nombre
+        FROM alumno
+        INNER JOIN seccion ON alumno.seccion_id = seccion.id
+        INNER JOIN curso ON seccion.id = curso.seccion_id
+        WHERE curso.id = ?
+        """, arrayOf(idCurso.toString()))
+    }
+
+    fun getNotasPorCursoYAlumno(idCurso: Int, idAlumno: Int): List<Int?> {
+        val db = this.readableDatabase
+        val cursor = db.rawQuery("""
+        SELECT n1, n2, n3, n4
+        FROM notas
+        WHERE id_curso = ? AND id_alumno = ?
+        """, arrayOf(idCurso.toString(), idAlumno.toString()))
+        val notas = mutableListOf<Int?>()
+        if (cursor.moveToFirst()) {
+            notas.add(cursor.getInt(0))
+            notas.add(cursor.getInt(1))
+            notas.add(cursor.getInt(2))
+            notas.add(cursor.getInt(3))
+        }
+        cursor.close()
+        return notas
+    }
+
+    fun saveNotas(idCurso: Int, idAlumno: Int, notas: List<Int?>) {
+        val db = this.writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put("id_curso", idCurso)
+        contentValues.put("id_alumno", idAlumno)
+        contentValues.put("n1", notas[0])
+        contentValues.put("n2", notas[1])
+        contentValues.put("n3", notas[2])
+        contentValues.put("n4", notas[3])
+        db.insert("notas", null, contentValues)
+    }
 }
 

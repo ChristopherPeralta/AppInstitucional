@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity() {
 
         Rol()
         Usuario_Rol()
-
     }
 
     private fun Usuario_Rol() {

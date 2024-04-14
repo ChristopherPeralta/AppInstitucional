@@ -5,7 +5,6 @@ data class Curso(
     val nombre: String,
     val horario_inicio: String,
     val horario_fin: String,
-    val dia: String,
     val aula: String,
     val seccion_nombre: String,
     val grado_nombre: String,

@@ -1,5 +1,6 @@
 package com.example.appinstitucional.ui.Profesor
 
+import DatabaseHelper
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,12 +12,15 @@ import com.example.appinstitucional.ui.Administrador.AdministradorActivity
 import com.example.appinstitucional.ui.Administrador.AlumnoAdmin
 import com.example.appinstitucional.ui.Administrador.ProfesorAdmin
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.time.LocalDate
 
 class CursoAsistenciaProfesor : AppCompatActivity() {
+    private lateinit var databaseHelper: DatabaseHelper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profesor_curso_asistencia)
 
+        databaseHelper = DatabaseHelper(this)
 
         NavegacionNotaCurso()
         updateNavigationSelection()
@@ -32,6 +36,7 @@ class CursoAsistenciaProfesor : AppCompatActivity() {
 
         val btnAsistencia: Button = findViewById(R.id.btnAsistencia)
         btnAsistencia.setOnClickListener {
+
             val intent = Intent(this, CursoAsistenciaProfesor::class.java)
             startActivity(intent)
         }
